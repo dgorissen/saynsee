@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+	
+{% block form %}
+
+<p>Welcome to the Say & Say application!</p>
+<br />
+<p>Who do you want to chat with?</p>
+
+<ul>
+<li>
+<form method="post" action="/invite/">{% csrf_token %}<br />
+		<label>Email address:</label><br /> <input type="text" name="email" />
+		<input type="submit" value="Invite" />
+	</form>
+</li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block form %}
+	
+	Please enter your email to start verification:
+	
+	<form method="post" action="/start_verify/">{% csrf_token %}
+		email addr: <input type="text" name="email" />
+		<input type="submit" value="Verify me" />
+	</form>
+
+	If already verified, login here: <a href="/accounts/login">Login</a>
+
+{% endblock %}

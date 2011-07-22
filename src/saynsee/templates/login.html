@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+	
+{% block form %}
+
+	No installation, no passwords, no contact lists, no fees.
+	<br />
+	<br />
+	How does it work:
+	<br />
+	<br />
+	<ol>
+	<li>Fill in your email address & confirm it belongs to you</li>
+	<li>Fill in the email address of the person you want to chat with.</li>
+	<li>Wait for the other person to appear on screen.</li>
+	</ol>
+	<br />
+	<br />
+
+<div id="new_chat">
+	<form method="post" action="/accounts/login/">{% csrf_token %}
+		<table>
+			<tr>
+				<td>Your email address:</td>
+                        </tr>
+                        <tr>
+				<td><input type="text" name="email" />{{ html_captcha|safe }}</td>
+			</tr>
+			<tr style="display: none;">
+				<td>Secret password:</td>
+				<td><input type="password" name="password1" /></td>
+			</tr>
+			<tr style="display: none;">
+				<td>Re-type Password:</td>
+                            	<td><input type="password" name="password2" /></td>
+			</tr>
+		</table>
+		<br />
+		
+		<input type="submit" class="button" value="Start New Chat" />
+		<input type="hidden" name="next" value="{{ next }}" />
+	</form>
+
+</div>
+
+{% endblock %}

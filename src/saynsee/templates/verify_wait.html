@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+	
+{% block form %}
+	
+	<p>Thanks for trying out Say & See!
+	<br />
+	<br />
+	 Before you can do anything we need to check that you are really who you say you are.</p>
+	<br />
+	<ul>
+	{% if isphone %}
+    	<li>You will hear your phone ring, listen carefully and enter
+    	the given number here.<br />
+	    	<form method="post" action="/main/">{% csrf_token %}
+				Given number: <br /><input type="text" name="pin" />
+				<input type="submit" value="Verify me" />
+			</form>
+    	</li>
+    {% else %}
+    	<li>Please check your email address and click on the verification link sent to you.</li>
+    {% endif %}
+	</ul>
+	
+{% endblock %}

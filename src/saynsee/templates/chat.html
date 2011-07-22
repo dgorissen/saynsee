@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+  {% block js %}
+  
+		<link href="{{ STATIC_URL }}css/jquery.opentok.css" type="text/css" rel="stylesheet" >
+		<link href="{{ STATIC_URL }}css/jquery.opentok.layout.css" type="text/css" rel="stylesheet" >
+        
+		{% if testmode %}
+			<!-- Test API -->
+			<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript"></script>
+	    {% else %}
+			<!-- Production -->
+			<script src="http://static.opentok.com/v0.91/js/TB.min.js" type="text/javascript"></script>
+    	{% endif %}
+		
+        <script src="{{ STATIC_URL }}js/jquery.opentok.js" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ STATIC_URL }}js/jquery.opentok.layout.js" type="text/javascript" charset="utf-8"></script>
+		
+        <script type="text/javascript">
+            (function($){
+                $(document).ready(function(){
+                    $('#opentok_container').openTok({
+						apiKey: '{{apikey}}',
+                        sessionId: '{{sid}}',
+                        connectionToken: '{{auth_token}}',
+						//logLevel: $.openTok.logLevel.debug,
+						
+                        streamWrapper: '<div class="opentok-stream" style="display:hidden;visible:none"></div>'
+                    });
+
+                    $("#startVideo").click(function(){
+                        $(".opentok-connect").click();
+                        // we need to hold off 
+                        window.setTimeout(function(){$(".opentok-publish").click();}, 4000);
+
+                        $("#stopVideo").show();
+                        $("#startVideo").hide();
+                    });
+
+                    $("#stopVideo").click(function(){
+                        $(".opentok-unpublish").click();
+                        $(".opentok-disconnect").click();
+
+                        $("#stopVideo").hide();
+                        $("#startVideo").show();
+                    });
+                });
+            })(jQuery);
+        </script>
+  {% endblock %}
+
+{% block form %}
+    
+	Click below to start the chat and wait for the other person to appear.
+	<br />
+	<br />
+	 <div id="opentok_container">
+            <div id="opentok_console"></div>
+            <div id="links">
+              <a href="#" id="startVideo">Start Video Chat</a>
+              <a href="#" id="stopVideo" style="display: none;">Stop Video Chat</a>
+              
+              <div id="hidden" style="display: none;">
+                <a href="#" class="opentok-connect">Connect</a>
+		        <a href="#" class="opentok-disconnect">Leave</a>
+		        <a href="#" class="opentok-publish">Publish</a>
+		        <a href="#" class="opentok-unpublish">Unpublish</a>
+              </div>
+            </div>
+            
+            <div class="opentok-publisher"></div>
+    		<div class="opentok-streams"></div>
+      </div>
+	<br />
+	Your chat number: {{token}}
+{% endblock %}

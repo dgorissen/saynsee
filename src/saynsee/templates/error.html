@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+	
+{% block form %}
+	
+	Oops, something went wrong: 
+	
+	<div id="error_msg" style="text-align: center;">
+		<br />
+		<br />
+			{{msg}}
+		<br />
+		<br />
+	
+		<img src="{{ STATIC_URL }}images/elderly2.jpg" alt="SeenSay" style="float:center;" />
+		<br />
+	</div>
+
+	<br />
+	<br />
+	You are getting this message because you did something wrong, or because you found a bug. The good news is that <a href="https://github.com/dgorissen/saynsee">you can help fix it</a>!
+	<br />
+	<br />
+	
+{% endblock %}
